@@ -1,0 +1,21 @@
+{% extends 'base.html'%}
+{% block content %}
+    <form action = "{% url 'polls:add_new_poll'  %}" method = "POST"> 
+
+    {% csrf_token %}
+        <div>Тема опроса</div>
+        <input type="text" required placeholder="" name = "text"><br>
+        <p>
+        <div>Варианты ответа</div>
+        {% for choice in all_choices %}
+            <input type="text" required placeholder="" name = "ch_text"><br>
+            
+        
+        {% endfor %}
+        </p>
+
+        <button type="submit">Добавить опрос</button>
+
+    </form>
+
+{% endblock %}

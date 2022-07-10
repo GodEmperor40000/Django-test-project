@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Регистрация{% endblock %} 
+
+{% block content %}
+
+    <p><strong>Регистрация</strong></p>
+
+    <form action="{% url 'custom_user:registration' %}" method="POST">
+        {% csrf_token %}
+        <p><strong>Никнейм: </strong></p>
+        <input type="text" required placeholder="введите желаемый никнейм" name = "name">
+        <p><strong>Пароль: </strong></p>
+        <input type="password" required placeholder="введите желаемый пароль" name = "password">
+        <p><strong>Ваш e-mail: </strong></p>
+        <input type="email" required placeholder="введите ваш e-mail" name = "email">
+        <p><strong>При желании, коротко расскажите о себе: </strong></p>
+        <input type="text" required placeholder="" name = "bio">
+        <p><strong>аватар: </strong></p>
+        <input type="file" required placeholder="" name = "avatar">
+        <button type = "submit">Зарегистрироваться</button>
+        
+    </form>
+
+{% endblock %}

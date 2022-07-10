@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} Мой сайт {% endblock %}</title>
+</head>
+<body>
+    <div class="page-header">
+        <a href="/">Главная страница сайта</a>
+        <ul class="sidebar-nav">
+
+            {% if user.is_authenticated %}
+            <li>User: {{ user.get_username }}</li>
+            <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+          {% else %}
+            <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+          {% endif %} 
+    
+        </ul>
+    </div>
+    <div class="content container">
+        <div class="row">
+            <div class="col-md-8">
+            {% block content %}
+            {% endblock %}
+            </div>
+        </div>
+    </div>
+</body>

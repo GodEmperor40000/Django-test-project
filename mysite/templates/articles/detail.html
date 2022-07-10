@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}{{article.article_title}}{% endblock %}
+
+{% block content %}
+
+    <h2>{{article.article_title}}</h2>
+
+    <p> <font color="black" size ="4" face = "cursive"> {{article.article_text}} </font></p>
+
+    <em>{{article.pub_date}}</em>
+
+    {% if article.was_published_recently%}
+
+        New article!
+
+    {% endif %}
+    
+    <hr>
+    
+        {% if latest_comments_list %}
+            
+            {% for c in latest_comments_list %}
+                
+                {% if index == 1 %}
+                    <p>
+                        <strong><font color="red" size ="8" face = "sans-serif"> {c.author_name}}</font></strong>
+                        <p><font color="red" size ="5" face = "sans-serif">{{c.comment_text}}</font></p>
+                    </p>
+                {% else %}
+                    <p>
+                        <strong>    {{c.author_name}} </strong>
+                        <p> {{c.comment_text}} </p>
+                    </p>
+                {% endif %}
+            {% endfor %}
+
+        {% else %}
+            No comments
+        {% endif %}
+
+    <hr>
+    {% if user.is_authenticated %}
+    <form action = "{% url 'articles:leave_comment' article.id %}" method = "POST">
+
+        {% csrf_token %}
+
+        <input type="text" required placeholder="Your name" name = "name"><br>
+        <textarea name = "text" required="" placeholder="Comment text" cols = "30" rows = "10"></textarea><br>
+
+        <button type="submit">Leave comment</button>
+
+    </form>
+    {% else %}
+    Оставлять комментарии могут только авторизированные пользователи
+    {% endif %}
+    
+
+{% endblock %}

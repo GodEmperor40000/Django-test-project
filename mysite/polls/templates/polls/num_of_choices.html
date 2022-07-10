@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form action = "{% url 'polls:prom_zv_1' %}" method="POST">
+        {% csrf_token %}
+        {% if error_message %}<p><strong> {{err_num}} Не верное число! Ну и ну партия не ожидать такой ответ!!!! -9999999 социальный рейтинг </strong></p>{% endif %}
+        <input type = "number" required placeholder="Введите желаемое количество вариантов ответов" name = "num"><br>
+        <button type="submit">Принять! </button>
+
+    </form>
+{% endblock %}

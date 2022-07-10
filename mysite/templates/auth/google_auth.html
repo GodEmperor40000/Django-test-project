@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <meta name="google-signin-client_id"
+              content="1039395826008-l6iatq53kfssrln8it6d2prjj8iar80j.apps.googleusercontent.com"> 
+
+    </head>
+    <body>
+        <h1>Ivan</h1>
+        <div id='my-signin'></div>
+        
+        <script>
+            
+            function onSuccess(googleUser){
+                let profile = googleUser.getBasicProfile()
+                console.log('Email: '+ profile.getEmail())
+                let token = googleUser.getAuthResponse().id_token
+                console.log('Token: '+ token)
+            }
+
+            function onfailure(error){
+                console.log(error)
+            }
+
+            function renderButton(){
+                google.accounts.id.renderButton('my-signin',{
+                     'scope':'profile email',
+                    'width':240,
+                    'height':50,
+                    'longtitle':true,
+                    'theme':'dark',
+                    'onsuccess':onSuccess,
+                    'onfailure':onfailure
+                });
+            }
+
+        </script>
+        
+        <script scr="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>    
+    </body>
+</html>

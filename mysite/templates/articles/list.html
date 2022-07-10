@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Все статьи{% endblock %} 
+
+{% block content %}
+
+    {% if all_articles_list %}
+
+        <p><strong> Все статьи </strong></p>
+        {% for a in all_articles_list %}
+        <li>
+            {% if a in latest_articles_list %}
+                <font color="blue" size ="3" face = "cursive"><a href="{% url 'articles:detail' a.id %}">{{a.article_title}}</a></font>
+                <font color="red" size ="2" face = "cursive"> New Article ! </font>  
+            {% else %}
+                <a href="{% url 'articles:detail' a.id %}">{{a.article_title}}</a>
+            {% endif %}
+        </li>
+        {% endfor %}
+
+    {% else %}
+        Статьи не найдены
+    {% endif %}
+    {% if user.is_authenticated %}
+    <p> <a href="{% url 'articles:create_article' %}">Добавить новую статью</a></p>
+    {% else %}
+    Создание статей доступно только аторизованным пользователям
+    {% endif %}    
+{% endblock %}
